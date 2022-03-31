@@ -11,34 +11,34 @@ const TaskItem = (props) => {
   const { task } = props
 
   return (
-    <li
-      key={task.id}
-      style={{
-        cursor: "pointer"
-      }}
-      onClick={() => {
-        db.tasks
-          .where({
-            id: task.id
-          })
-          .modify((f) => { f.done = !f.done })
-      }}
+    <li 
+    key={task.id}
+    style={{
+      cursor: "pointer"
+    }}
+    onClick={() => {
+      db.tasks
+        .where({
+          id: task.id
+        })
+        .modify((f) => {f.done = !f.done})
+    }}
+  >
+    <span
+      onClick={() => {db.tasks.where({id: task.id}).delete()}}
+      style={{marginRight: 6}}
     >
-      <span
-        onClick={() => { db.tasks.where({ id: task.id }).delete() }}
-        style={{ marginRight: 6 }}
-      >
-        {"🗑️"}
-      </span>
-      {task && task.done ? "👌" : "👋"}{" "}
-      <span
-        style={task.done ? {
-          textDecoration: "line-through"
-        } : {}}
-      >
-        {task.title}
-      </span>
-    </li>)
+      {"🗑️"}
+    </span>
+    {task && task.done ? "👌" : "👋"}{" "}
+    <span
+      style={task.done ? {
+        textDecoration: "line-through"
+      } : {}}
+    >
+      {task.title}
+    </span>
+  </li>)
 
 }
 
@@ -78,7 +78,7 @@ const App = () => {
 
       <button onClick={onHandleSubmit}>Create</button>
 
-      <ul style={{ listStyle: "none" }}>
+      <ul style={{listStyle: "none"}}>
         {tasks?.map(task => <TaskItem key={task.id} task={task} />)}
       </ul>
 
